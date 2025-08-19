@@ -141,7 +141,7 @@
   }
 
   & h2:not(.not-prose h2) {
-    @apply scroll-m-20 border-b pb-2 text-4xl font-normal tracking-[0.015em] mt-8 first:mt-0;
+    @apply scroll-m-20 border-b pb-4 text-4xl font-normal tracking-[0.015em] mt-8 first:mt-0;
   }
 
   & h3:not(.not-prose h3) {
