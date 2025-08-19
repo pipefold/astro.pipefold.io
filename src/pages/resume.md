@@ -3,11 +3,43 @@ title: "Thomas O'Neill"
 layout: ../layouts/resume.astro
 ---
 
+<div class="flex justify-center">
+
 # Thomas O'Neill
+
+</div>
+
+<div class="flex justify-between items-start gap-8 mb-8 mt-4">
+
+<div class="flex-1">
+
+## Synopsis
 
 Software engineer specializing in web development, with expertise in 3D technologies using Three.js and the React ecosystem (including Next.js and TypeScript). Built and deployed projects from prototype to production, with a foundation in backend systems, DevOps, and functional programming. Self-taught polyglot programmer skilled in languages like Python and Rust, with interests in p2p technologies, cryptography, Bitcoin, and innovative systems.
 
+</div>
+
+<div class="flex-1">
+
+## Contact & Links
+
+- **Email:** [thomas@pipefold.io](mailto:thomas@pipefold.io)
+- **GitHub:** [github.com/pipefold](https://github.com/pipefold)
+- **LinkedIn:** [linkedin.com/in/thomasoneill](https://linkedin.com/in/thomasoneill)
+- **Location:** London, UK
+
+</div>
+
+</div>
+
 ## Work Experience
+
+### Software Engineer / Director
+
+Pipe Fold Ltd.
+October 2024 - Present
+
+lorem ipsum
 
 ### Lead 3D Web Engineer
 

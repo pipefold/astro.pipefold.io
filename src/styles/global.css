@@ -125,7 +125,7 @@
 }
 
 .prose {
-  @apply max-w-[65ch] text-foreground text-sm;
+  @apply max-w-5xl text-foreground text-sm;
 
   & h1,
   & h2,
