@@ -3,12 +3,20 @@ import MainLayout from "../layouts/main.astro";
 ---
 
 <MainLayout content={{ title: "pipefold.io" }}>
-  <div class="flex flex-col items-center justify-center h-screen">
-    <div class="font-mono text-4xl font-semibold">pipe|fold</div>
-    <div class="h-10"></div>
-    <div>
-      <a href="/portfolio" class="p-4 underline">Portfolio</a>
-      <a href="/resume" class="p-4 underline">Resume</a>
+  <div class="flex flex-col items-center justify-center h-screen gap-6">
+    <div class="font-serif text-4xl font-semibold">Pipe Fold Ltd.</div>
+    <div class="font-mono text-xl font-thin">work in progress</div>
+    <div class="flex gap-6 font-serif text-xl">
+      <a
+        href="/portfolio"
+        class="py-2 px-4 text-primary underline-offset-4 hover:underline border border-primary-accent"
+        >Portfolio</a
+      >
+      <a
+        href="/resume"
+        class="py-2 px-4 text-primary underline-offset-4 hover:underline border border-primary-accent"
+        >Resume</a
+      >
     </div>
   </div>
 </MainLayout>
