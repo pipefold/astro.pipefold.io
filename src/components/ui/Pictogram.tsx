@@ -9,8 +9,13 @@ const Pictogram = ({
 }) => {
   return (
     <div
-      className={`w-12 h-12 inline-block mr-2 translate-y-3 ${className}`}
-      style={{ backgroundImage: `url(/pictograms/${name}.svg)` }}
+      className={`inline-block mr-2 translate-y-3 bg-no-repeat bg-center dark:invert ${className}`}
+      style={{
+        backgroundImage: `url(/pictograms/${name}.svg)`,
+        width: "1.5em",
+        height: "1.5em",
+        backgroundSize: "contain",
+      }}
     />
   );
 };

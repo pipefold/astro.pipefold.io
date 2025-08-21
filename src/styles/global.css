@@ -306,3 +306,13 @@
     @apply text-xs leading-none;
   }
 }
+
+.contact-links {
+  & ul {
+    @apply !ml-0;
+  }
+
+  & li {
+    @apply list-none;
+  }
+}
