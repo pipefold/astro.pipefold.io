@@ -2,7 +2,6 @@
 import { Font } from "astro:assets";
 import "../styles/global.css";
 import { ModeToggle } from "@/components/ui/ModeToggle";
-import ThreeBackground from "@/components/ui-3d/ThreeBackground.astro";
 const { content } = Astro.props;
 ---
 
@@ -17,9 +16,34 @@ const { content } = Astro.props;
     <Font cssVariable="--font-montserrat" />
     <Font cssVariable="--font-eb-garamond" />
     <Font cssVariable="--font-inconsolata" />
+    <!-- Prevent FOUC by setting theme immediately -->
+    <script is:inline>
+      (function () {
+        const savedTheme = localStorage.getItem("theme");
+        const systemPrefersDark = window.matchMedia(
+          "(prefers-color-scheme: dark)"
+        ).matches;
+
+        // Determine the effective theme
+        let theme = "light";
+        if (savedTheme === "dark" || savedTheme === "light") {
+          theme = savedTheme;
+        } else if (systemPrefersDark) {
+          theme = "dark";
+        }
+
+        // Apply theme class immediately
+        document.documentElement.classList.add(theme);
+      })();
+    </script>
+
+    <!-- Load the fonts -->
+    <Font cssVariable="--font-montserrat" />
+    <Font cssVariable="--font-eb-garamond" />
+    <Font cssVariable="--font-inconsolata" />
   </head>
   <body>
-    <ThreeBackground />
+    <!-- <ThreeBackground /> -->
     <div class="fixed top-4 right-4 z-50 print:hidden">
       <ModeToggle client:only />
     </div>
