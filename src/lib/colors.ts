@@ -69,8 +69,9 @@ export function oklchToHex(oklchString: string): string {
 export function getThemeColors() {
   const root = document.documentElement;
   const computedStyle = getComputedStyle(root);
+  const isDarkMode = document.documentElement.classList.contains("dark");
 
-  return {
+  const colors = {
     background: computedStyle.getPropertyValue("--background").trim(),
     foreground: computedStyle.getPropertyValue("--foreground").trim(),
     primary: computedStyle.getPropertyValue("--primary").trim(),
@@ -81,7 +82,10 @@ export function getThemeColors() {
     border: computedStyle.getPropertyValue("--border").trim(),
     input: computedStyle.getPropertyValue("--input").trim(),
     ring: computedStyle.getPropertyValue("--ring").trim(),
+    isDarkMode,
   };
+
+  return colors;
 }
 
 // Clear the color cache (useful for testing or memory management)
