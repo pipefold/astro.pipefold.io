@@ -4,6 +4,7 @@ import "../styles/global.css";
 import { ModeToggle } from "@/components/ui/ModeToggle";
 import KnotsAnim from "@/components/ui-3d/KnotsAnim.astro";
 const { content } = Astro.props;
+import { ClientRouter } from "astro:transitions";
 ---
 
 <html lang="en">
@@ -12,6 +13,8 @@ const { content } = Astro.props;
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <title>{content.title}</title>
+
+    <ClientRouter />
 
     <!-- Load the fonts -->
     <Font cssVariable="--font-montserrat" />
