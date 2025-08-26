@@ -2,6 +2,7 @@
 import { Font } from "astro:assets";
 import "../styles/global.css";
 import { ModeToggle } from "@/components/ui/ModeToggle";
+import KnotsAnim from "@/components/ui-3d/KnotsAnim.astro";
 const { content } = Astro.props;
 ---
 
@@ -43,7 +44,7 @@ const { content } = Astro.props;
     <Font cssVariable="--font-inconsolata" />
   </head>
   <body>
-    <!-- <ThreeBackground /> -->
+    <KnotsAnim />
     <div class="fixed top-4 right-4 z-50 print:hidden">
       <ModeToggle client:only />
     </div>

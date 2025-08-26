@@ -1,0 +1,130 @@
+<canvas id="three-background" class="fixed inset-0 -z-10 pointer-events-none"
+></canvas>
+
+<script>
+  import * as THREE from "three";
+  import { oklchToRGB, getThemeColors } from "../../lib/colors.js";
+
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(
+    75,
+    window.innerWidth / window.innerHeight,
+    0.1,
+    1000
+  );
+  camera.position.z = 0.5;
+  const canvas = document.getElementById(
+    "three-background"
+  ) as HTMLCanvasElement;
+  const renderer = new THREE.WebGLRenderer({
+    canvas,
+    antialias: true,
+    alpha: true,
+  });
+  renderer.outputColorSpace = THREE.SRGBColorSpace;
+
+  renderer.setSize(window.innerWidth, window.innerHeight);
+
+  // Create starting geometry (p=2, q=3 for trefoil knot)
+  const startGeo = new THREE.TorusKnotGeometry(1, 0.4, 128, 32, 2, 3);
+
+  // Create target geometry with same segments but different knot (p=3, q=5 for more windings)
+  const targetGeo = new THREE.TorusKnotGeometry(1, 0.4, 128, 32, 3, 5);
+
+  // Copy target positions as a custom attribute to the starting geo
+  const targetPositions = targetGeo.getAttribute("position").array;
+  startGeo.setAttribute(
+    "targetPosition",
+    new THREE.BufferAttribute(targetPositions, 3)
+  );
+
+  // Get theme colors
+  const colors = getThemeColors();
+  const themeColor = oklchToRGB(colors.background);
+  const colorLinear = new THREE.Color()
+    .setRGB(themeColor.r, themeColor.g, themeColor.b)
+    .convertSRGBToLinear();
+
+  // Custom shader material with theme color support
+  const material = new THREE.ShaderMaterial({
+    uniforms: {
+      mixFactor: { value: 0.0 },
+      color: { value: colorLinear },
+    },
+    vertexShader: `
+        attribute vec3 targetPosition;
+        uniform float mixFactor;
+        void main() {
+          // Simple lerp between original and target positions
+          vec3 pos = mix(position, targetPosition, mixFactor);
+          gl_Position = projectionMatrix * modelViewMatrix * vec4(pos, 1.0);
+        }
+      `,
+    fragmentShader: `
+        uniform vec3 color;
+        void main() {
+          gl_FragColor = vec4(color, 1.0);
+        }
+      `,
+    wireframe: true, // Makes it look like a drone grid; toggle off for solid mesh
+  });
+
+  const mesh = new THREE.Mesh(startGeo, material);
+  scene.add(mesh);
+
+  // Function to handle theme changes
+  function handleThemeChange() {
+    const colors = getThemeColors();
+    const themeColor = oklchToRGB(colors.background);
+    const colorLinear = new THREE.Color()
+      .setRGB(themeColor.r, themeColor.g, themeColor.b)
+      .convertSRGBToLinear();
+
+    material.uniforms.color.value = colorLinear;
+  }
+
+  // Listen for theme changes
+  const observer = new MutationObserver((mutations) => {
+    mutations.forEach((mutation) => {
+      if (mutation.attributeName === "class") {
+        handleThemeChange();
+      }
+    });
+  });
+
+  observer.observe(document.documentElement, {
+    attributes: true,
+    attributeFilter: ["class"],
+  });
+
+  // Animation loop
+  let time = 0;
+  function animate() {
+    requestAnimationFrame(animate);
+    time += 0.01;
+    // Ping-pong mix factor for looping morph (0 to 1 and back)
+    material.uniforms.mixFactor.value = Math.abs(Math.sin(time * 0.5));
+    mesh.rotation.y += 0.005; // Slow spin for extra flair
+    renderer.render(scene, camera);
+  }
+  animate();
+
+  // Handle resize
+  const handleResize = () => {
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+  };
+
+  window.addEventListener("resize", handleResize);
+
+  // Cleanup on page unload
+  window.addEventListener("beforeunload", () => {
+    observer.disconnect();
+    window.removeEventListener("resize", handleResize);
+    renderer.dispose();
+    startGeo.dispose();
+    targetGeo.dispose();
+    material.dispose();
+  });
+</script>
