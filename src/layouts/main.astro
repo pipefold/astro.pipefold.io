@@ -20,6 +20,7 @@ import { ClientRouter } from "astro:transitions";
     <Font cssVariable="--font-montserrat" />
     <Font cssVariable="--font-eb-garamond" />
     <Font cssVariable="--font-inconsolata" />
+
     <!-- Prevent FOUC by setting theme immediately -->
     <script is:inline>
       (function () {
@@ -40,11 +41,6 @@ import { ClientRouter } from "astro:transitions";
         document.documentElement.classList.add(theme);
       })();
     </script>
-
-    <!-- Load the fonts -->
-    <Font cssVariable="--font-montserrat" />
-    <Font cssVariable="--font-eb-garamond" />
-    <Font cssVariable="--font-inconsolata" />
   </head>
   <body>
     <KnotsAnim />
