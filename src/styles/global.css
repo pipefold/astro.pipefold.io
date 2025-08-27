@@ -125,7 +125,7 @@
 }
 
 .prose {
-  @apply max-w-[65ch] text-foreground text-sm;
+  @apply max-w-5xl text-foreground text-sm;
 
   & h1,
   & h2,
@@ -141,7 +141,7 @@
   }
 
   & h2:not(.not-prose h2) {
-    @apply scroll-m-20 border-b pb-2 text-4xl font-normal tracking-[0.015em] mt-8 first:mt-0;
+    @apply scroll-m-20 border-b pb-4 text-4xl font-normal tracking-[0.015em] mt-8 first:mt-0;
   }
 
   & h3:not(.not-prose h3) {
@@ -304,5 +304,15 @@
 
   & small:not(.not-prose small) {
     @apply text-xs leading-none;
+  }
+}
+
+.contact-links {
+  & ul {
+    @apply !ml-0;
+  }
+
+  & li {
+    @apply list-none;
   }
 }

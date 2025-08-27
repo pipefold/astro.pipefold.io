@@ -6,27 +6,26 @@ import react from "@astrojs/react";
 import remarkEmoji from "remark-emoji";
 import { remarkGithubEmoji } from "./src/lib/remark-github-emoji.js";
 
+import mdx from "@astrojs/mdx";
+
 // https://astro.build/config
 export default defineConfig({
   vite: {
     plugins: [tailwindcss()],
   },
 
-  integrations: [
-    react(),
-    {
-      name: "markdown-emoji",
-      hooks: {
-        "astro:config:setup": ({ updateConfig }) => {
-          updateConfig({
-            markdown: {
-              remarkPlugins: [remarkEmoji, remarkGithubEmoji],
-            },
-          });
-        },
+  integrations: [react(), {
+    name: "markdown-emoji",
+    hooks: {
+      "astro:config:setup": ({ updateConfig }) => {
+        updateConfig({
+          markdown: {
+            remarkPlugins: [remarkEmoji, remarkGithubEmoji],
+          },
+        });
       },
     },
-  ],
+  }, mdx()],
 
   experimental: {
     fonts: [
