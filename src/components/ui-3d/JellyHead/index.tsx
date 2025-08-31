@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import * as THREE from "three";
-import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
+import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 import { vertexShader, fragmentShader } from "./shaders";
 
 const DIMENSIONS = {
@@ -31,7 +31,6 @@ const params = {
 };
 
 export default function JellyHead() {
-  console.log("hey");
   const containerRef = useRef<HTMLDivElement>(null);
   const materialRef = useRef<THREE.ShaderMaterial | null>(null);
 
@@ -63,7 +62,7 @@ export default function JellyHead() {
     renderer.setSize(window.innerWidth, window.innerHeight);
     containerRef.current.appendChild(renderer.domElement);
 
-    renderer.domElement.style.opacity = "0.08";
+    renderer.domElement.style.opacity = "0.15";
 
     // Controls
     const controls = new OrbitControls(camera, renderer.domElement);
